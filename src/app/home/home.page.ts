@@ -11,11 +11,16 @@ export class HomePage implements OnInit {
   weatherData: any;
   localDate: string = '';
   localTime: string = '';
+  searchTerm: string = '';
+  city: string = 'Manado';
+  suggestions: any[] = [];
 
   constructor(private http: HttpClient, private menu: MenuController) {}
 
   ngOnInit() {
-    this.getWeather();
+    if (this.city) {
+      this.getWeather();
+    }
   }
 
   openMenu() {
@@ -24,9 +29,7 @@ export class HomePage implements OnInit {
 
   getWeather() {
     const apiKey = 'e84754d5446e436bb80134249241809';
-    const city = 'Ternate';
-
-    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${this.city}&aqi=no`;
 
     this.http.get(apiUrl).subscribe((data) => {
       this.weatherData = data;
@@ -75,6 +78,29 @@ export class HomePage implements OnInit {
     }
   }
 
+  onSearchChange(event: any) {
+    const searchTerm = event.target.value;
+    if (searchTerm && searchTerm.length > 2) {
+      this.getCitySuggestions(searchTerm);
+    } else {
+      this.suggestions = []; // Kosongkan daftar saran jika input kurang dari 3 karakter
+    }
+  }
+
+  getCitySuggestions(searchTerm: string) {
+    const apiKey = 'e84754d5446e436bb80134249241809';
+    const apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${searchTerm}`;
+
+    this.http.get(apiUrl).subscribe((data: any) => {
+      this.suggestions = data;
+    });
+  }
+
+  // Fungsi untuk menangani pemilihan kota dari dropdown
+  onCitySelected() {
+    this.getWeather(); // Panggil cuaca baru setelah kota dipilih
+  }
+
   getWeatherIcon(condition: string): string {
     switch (condition.toLowerCase()) {
       case 'clear':
@@ -102,8 +128,13 @@ export class HomePage implements OnInit {
         return 'assets/img/night.png';
       case 'night rain':
         return 'assets/img/night-rain.png';
+      case 'patchy light rain with thunder':
+        return 'assets/img/storm.png';
       default:
         return 'assets/img/cloud.png';
     }
+  }
+  onCityChange() {
+    this.getWeather(); // Fetch new weather data when the city changes
   }
 }

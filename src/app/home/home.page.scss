@@ -126,3 +126,40 @@ ion-content {
     }
   }
 }
+
+ion-label {
+  font-size: 16px;
+}
+
+ion-input {
+  font-size: 14px;
+  color: #333;
+}
+
+ion-select {
+  font-size: 16px;
+}
+
+ion-item {
+  --background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+ion-select-option {
+  font-size: 16px;
+  color: #333;
+}
+
+ion-select::part(text) {
+  color: #414242;
+  font-weight: bold;
+}
+
+ion-select-option:hover {
+  background-color: #e0e0e0;
+}
+
+ion-footer {
+  text-align: center;
+}

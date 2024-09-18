@@ -4,7 +4,32 @@
       <ion-title>Settings</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content> </ion-content>
+  <ion-content>
+    <!-- Search & Select Location -->
+    <ion-item>
+      <ion-label position="floating">Search City</ion-label>
+      <ion-input
+        [(ngModel)]="searchTerm"
+        (ionInput)="onSearchChange($event)"
+        placeholder="Enter city name"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select
+        [(ngModel)]="city"
+        (ionChange)="onCitySelected()"
+        placeholder="Selected City"
+      >
+        <ion-select-option
+          *ngFor="let suggestion of suggestions"
+          [value]="suggestion.name"
+        >
+          {{ suggestion.name }}, {{ suggestion.country }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-content>
 </ion-menu>
 
 <div class="ion-page" id="main-content">
@@ -71,7 +96,7 @@
         </div>
       </ion-card>
     </div>
-    <div class="hourly">
+    <!-- <div class="hourly">
       <h3 class="ion-padding-start">Sunday, Today</h3>
       <div class="hourly-info ion-padding">
         <div class="info">
@@ -110,6 +135,12 @@
           <p>7°</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </ion-content>
+  <ion-footer collapse="fade">
+    <ion-toolbar>
+      <ion-title>Weather App</ion-title>
+      <p>By: Adriano Posumah</p>
+    </ion-toolbar>
+  </ion-footer>
 </div>
