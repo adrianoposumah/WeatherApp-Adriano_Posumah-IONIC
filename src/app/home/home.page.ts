@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   }
 
   openMenu() {
-    this.menu.open('first'); // Pastikan 'first' sesuai dengan menuId di HTML
+    this.menu.open('first');
   }
 
   getWeather() {
@@ -35,17 +35,14 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Fungsi untuk memperbarui waktu lokal
   updateLocalTime() {
     if (this.weatherData && this.weatherData.location.localtime) {
       const localTime = this.weatherData.location.localtime;
       const [date, time] = localTime.split(' ');
 
-      // Mengonversi string tanggal menjadi objek Date
       const [year, month, day] = date.split('-').map(Number);
-      const dateObject = new Date(year, month - 1, day); // Bulan dimulai dari 0 di JavaScript
+      const dateObject = new Date(year, month - 1, day);
 
-      // Menentukan format custom
       const weekdays = [
         'Sunday',
         'Monday',
@@ -74,7 +71,7 @@ export class HomePage implements OnInit {
       const monthName = months[dateObject.getMonth()];
 
       this.localDate = `${weekday}, ${day} ${monthName} ${year}`;
-      this.localTime = time; // HH:mm
+      this.localTime = time;
     }
   }
 
@@ -106,7 +103,7 @@ export class HomePage implements OnInit {
       case 'night rain':
         return 'assets/img/night-rain.png';
       default:
-        return 'assets/img/cloud.png'; // Default icon jika kondisi tidak dikenali
+        return 'assets/img/cloud.png';
     }
   }
 }
