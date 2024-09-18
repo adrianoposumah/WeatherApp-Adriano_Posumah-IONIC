@@ -1,20 +1,115 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header class="ion-no-border" mode="ios">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title>Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content> </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header class="ion-no-border" mode="ios">
+    <ion-toolbar class="ion-padding-start ion-padding-end ion-padding-top">
+      <ion-icon
+        name="menu-outline"
+        slot="start"
+        (click)="openMenu()"
+      ></ion-icon>
+
+      <ion-title> Weather </ion-title>
+      <span slot="end">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <!-- <ion-badge>&nbsp;</ion-badge> -->
+      </span>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <ion-content *ngIf="weatherData">
+    <h4 class="location">
+      {{ weatherData.location.name }}, {{ weatherData.location.country }}
+    </h4>
+    <h3 class="location">{{ localDate }}</h3>
+    <h3 class="location">{{ localTime }}</h3>
+    <div class="main-info">
+      <img
+        [src]="getWeatherIcon(weatherData.current.condition.text)"
+        alt="weather condition"
+      />
+      <h5>{{ weatherData.current.condition.text }}</h5>
+      <h1>{{ weatherData.current.temp_c }}°C</h1>
+    </div>
+    <div class="other-info ion-padding">
+      <ion-card class="ion-padding-start ion-padding-end ion-padding-bottom">
+        <div class="info">
+          <img src="/assets/img/windy.png" alt="" />
+          <h5>Wind</h5>
+          <h3>
+            {{ weatherData.current.wind_dir }} {{ weatherData.current.wind_kph
+            }} kph
+          </h3>
+        </div>
+      </ion-card>
+      <ion-card class="ion-padding-start ion-padding-end ion-padding-bottom">
+        <div class="info">
+          <img src="/assets/img/humidity.png" alt="" />
+          <h5>Humidity</h5>
+          <h3>{{ weatherData.current.humidity }}%</h3>
+        </div>
+      </ion-card>
+      <ion-card class="ion-padding-start ion-padding-end ion-padding-bottom">
+        <div class="info">
+          <img src="/assets/img/precipation.png" alt="" />
+          <h5>Precipitation</h5>
+          <h3>{{ weatherData.current.precip_mm }} mm</h3>
+        </div>
+      </ion-card>
+      <ion-card class="ion-padding-start ion-padding-end ion-padding-bottom">
+        <div class="info">
+          <img src="/assets/img/temperature.png" alt="" />
+          <h5>Feels like</h5>
+          <h3>{{ weatherData.current.feelslike_c }}°C</h3>
+        </div>
+      </ion-card>
+    </div>
+    <div class="hourly">
+      <h3 class="ion-padding-start">Sunday, Today</h3>
+      <div class="hourly-info ion-padding">
+        <div class="info">
+          <p>Now</p>
+          <img src="/assets/img/partly-cloudy-day.png" alt="" />
+          <p>7°</p>
+        </div>
+        <div class="info">
+          <p>10AM</p>
+          <img src="/assets/img/partly-cloudy-night.png" alt="" />
+          <p>7°</p>
+        </div>
+        <div class="info">
+          <p>11 AM</p>
+          <img src="/assets/img/fog.png" alt="" />
+          <p>7°</p>
+        </div>
+        <div class="info">
+          <p>12 AM</p>
+          <img src="/assets/img/rain.png" alt="" />
+          <p>7°</p>
+        </div>
+        <div class="info">
+          <p>1 PM</p>
+          <img src="/assets/img/rain.png" alt="" />
+          <p>7°</p>
+        </div>
+        <div class="info">
+          <p>1 PM</p>
+          <img src="/assets/img/rain.png" alt="" />
+          <p>7°</p>
+        </div>
+        <div class="info">
+          <p>1 PM</p>
+          <img src="/assets/img/rain.png" alt="" />
+          <p>7°</p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</div>
